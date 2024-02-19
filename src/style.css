@@ -55,3 +55,7 @@ footer {
 footer a {
   padding: 5px;
 }
+table {
+  width: 100%;
+  text-align: center;
+}
