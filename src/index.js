@@ -1,14 +1,31 @@
 import "./style.css";
+let teams;
 
-function load_teams() {
-  const promise = fetch("http://localhost:3000/teams-json")
+async function load_teams() {
+  const promise = await fetch("http://localhost:3000/teams-json")
     .then(res => res.json())
     .then(data => {
-      console.table(data);
-      return data;
+      teams = data;
     });
-
-  console.log(promise);
 }
 
-load_teams();
+function display_teams() {
+  if (!teams) {
+    return false;
+  }
+  let html = "";
+  teams.forEach(team => {
+    html += `<tr>
+            <td>${team.promotion}</td>
+            <td>${team.members}</td>
+            <td>${team.name}</td>
+            <td>${team.url}</td>
+            <td></td>
+            </tr>
+    `;
+  });
+  document.querySelector("tbody").innerHTML = html;
+}
+
+await load_teams();
+display_teams();
