@@ -19,11 +19,12 @@ function display_teams() {
             <td>${team.promotion}</td>
             <td>${team.members}</td>
             <td>${team.name}</td>
-            <td>${team.url}</td>
+            <td><a target="_blank" href="${team.url}">View</a></td>
             <td></td>
             </tr>
     `;
   });
+  console.log(teams);
   document.querySelector("tbody").innerHTML = html;
 }
 
