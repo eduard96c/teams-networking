@@ -1,11 +1,26 @@
 import "./style.css";
-let teams;
+
 function load_teams() {
   const promise = fetch("http://localhost:3000/teams-json")
     .then(res => res.json())
     .then(data => {
       display_teams(data);
     });
+}
+
+function create_entry() {
+  fetch("http://localhost:3000/teams-json/create", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      promotion: "WON3",
+      members: "Your Name",
+      name: "CV",
+      url: "https://github.com/nmatei/teams-networking"
+    })
+  });
 }
 
 function get_team_as_html(team) {
@@ -18,6 +33,7 @@ function get_team_as_html(team) {
   </tr>
 `;
 }
+
 function display_teams(teams) {
   if (!teams) {
     return false;
@@ -28,4 +44,15 @@ function display_teams(teams) {
   document.querySelector("tbody").innerHTML = html.join("");
 }
 
+function on_sbumit(e) {
+  e.preventDefault();
+  create_entry();
+  window.location.reload();
+}
+
+function init_events() {
+  document.querySelector("#teams-form").addEventListener("submit", on_sbumit);
+}
+
+init_events();
 load_teams();
