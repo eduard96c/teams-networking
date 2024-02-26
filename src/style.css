@@ -5,6 +5,7 @@ body {
   height: 100%;
   margin: 0;
   flex-direction: column;
+  background-color: #e9f6f8;
 }
 #header-wrapper {
   background-color: lightblue;
@@ -54,24 +55,28 @@ footer {
 footer a {
   padding: 5px;
 }
-table {
+section {
+  padding: 15px;
+}
+#teams-table {
   margin-top: 15px;
   width: 100%;
   text-align: center;
   border-collapse: collapse;
 }
-th {
+#teams-table th {
   background-color: #0798ab;
+  color: white;
 }
-th,
-td {
+#teams-table th,
+#teams-table td {
   border: 1px solid #057988;
   padding: 5px;
 }
-tr:nth-child(odd) {
+#teams-table tr:nth-child(odd) {
   background-color: #e9f6f8;
 }
-td a {
+#teams-table td a {
   color: #0096d6;
   text-decoration: none;
 }

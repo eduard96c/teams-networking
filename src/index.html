@@ -18,27 +18,44 @@
       </div>
     </header>
     <section id="main">
-      <table>
-        <thead>
-          <tr>
-            <th>Promotion</th>
-            <th>Members</th>
-            <th>Project Name</th>
-            <th>Project URL</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Won15</td>
-            <td>Noi</td>
-            <td>Teams</td>
-            <td>github</td>
-            <td>x</td>
-          </tr>
-        </tbody>
-        <tfoot></tfoot>
-      </table>
+      <form action="secretary" method="get">
+        <table id="teams-table">
+          <thead>
+            <tr>
+              <th>Promotion</th>
+              <th>Members</th>
+              <th>Project Name</th>
+              <th>Project URL</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Won15</td>
+              <td>Noi</td>
+              <td>Teams</td>
+              <td>github</td>
+              <td>x</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td><input type="text" name="promotion" id="promotion" placeholder="Enter promotion" required /></td>
+              <td><input type="text" name="members" id="members" placeholder="Enter members" required /></td>
+              <td>
+                <input type="text" name="project-name" id="project-name" placeholder="Enter project name" required />
+              </td>
+              <td>
+                <input type="text" name="project-url" id="project-url" placeholder="Enter project url" required />
+              </td>
+              <td>
+                <button type="submit">💾</button>
+                <button type="reset">❌</button>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </form>
     </section>
     <footer>
       <a href="#">Github</a>
