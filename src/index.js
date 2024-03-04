@@ -1,5 +1,9 @@
 import "./style.css";
 
+function $(selector) {
+  return document.querySelector(selector);
+}
+
 function load_teams() {
   const promise = fetch("http://localhost:3000/teams-json")
     .then(res => res.json())
@@ -8,22 +12,13 @@ function load_teams() {
     });
 }
 
-function create_entry() {
-  let ids = ["promotion", "members", "name", "url"];
-
-  let json = {};
-
-  ids.forEach(function (elem) {
-    let inpt = document.querySelector("#" + elem);
-    json[elem] = inpt.value;
-  });
-
+function create_entry(team) {
   fetch("http://localhost:3000/teams-json/create", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify(json)
+    body: JSON.stringify(team)
   });
 }
 
@@ -45,17 +40,30 @@ function display_teams(teams) {
 
   let html = teams.map(team => get_team_as_html(team));
 
-  document.querySelector("tbody").innerHTML = html.join("");
+  $("tbody").innerHTML = html.join("");
+}
+
+function get_form_values() {
+  let ids = ["promotion", "members", "name", "url"];
+
+  let team = {};
+
+  ids.forEach(function (elem) {
+    let inpt = $(`input[name=${elem}]`);
+    team[elem] = inpt.value;
+  });
+  return team;
 }
 
 function on_sbumit(e) {
   e.preventDefault();
-  create_entry();
+  let team = get_form_values();
+  create_entry(team);
   window.location.reload();
 }
 
 function init_events() {
-  document.querySelector("#teams-form").addEventListener("submit", on_sbumit);
+  $("#teams-form").addEventListener("submit", on_sbumit);
 }
 
 init_events();
