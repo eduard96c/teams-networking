@@ -12,7 +12,7 @@ function load_teams() {
     });
 }
 
-function create_entry(team) {
+function create_request(team) {
   fetch("http://localhost:3000/teams-json/create", {
     method: "POST",
     headers: {
@@ -22,13 +22,25 @@ function create_entry(team) {
   });
 }
 
+function delete_request(id) {
+  fetch("http://localhost:3000/teams-json/delete", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ id: id })
+  });
+}
+
+window.delete_request = delete_request;
+
 function get_team_as_html(team) {
   return `<tr>
   <td>${team.promotion}</td>
   <td>${team.members}</td>
   <td>${team.name}</td>
   <td><a target="_blank" href="${team.url}">View</a></td>
-  <td></td>
+  <td><a href="#" onclick="delete_request('${team.id}')">✖</td>
   </tr>
 `;
 }
@@ -55,15 +67,15 @@ function get_form_values() {
   return team;
 }
 
-function on_sbumit(e) {
+function on_submit(e) {
   e.preventDefault();
   let team = get_form_values();
-  create_entry(team);
+  create_request(team);
   window.location.reload();
 }
 
 function init_events() {
-  $("#teams-form").addEventListener("submit", on_sbumit);
+  $("#teams-form").addEventListener("submit", on_submit);
 }
 
 init_events();
