@@ -32,15 +32,13 @@ function delete_request(id) {
   });
 }
 
-window.delete_request = delete_request;
-
 function get_team_as_html(team) {
   return `<tr>
   <td>${team.promotion}</td>
   <td>${team.members}</td>
   <td>${team.name}</td>
   <td><a target="_blank" href="${team.url}">View</a></td>
-  <td><a href="#" onclick="delete_request('${team.id}')">✖</td>
+  <td><a href="#" data-id=${team.id} >✖</td>
   </tr>
 `;
 }
@@ -76,6 +74,12 @@ function on_submit(e) {
 
 function init_events() {
   $("#teams-form").addEventListener("submit", on_submit);
+  $("#teams-table tbody").addEventListener("click", e => {
+    if (e.target.matches("a")) {
+      delete_request(e.target.dataset.id);
+      window.location.reload();
+    }
+  });
 }
 
 init_events();
