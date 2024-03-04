@@ -9,17 +9,21 @@ function load_teams() {
 }
 
 function create_entry() {
+  let ids = ["promotion", "members", "name", "url"];
+
+  let json = {};
+
+  ids.forEach(function (elem) {
+    let inpt = document.querySelector("#" + elem);
+    json[elem] = inpt.value;
+  });
+
   fetch("http://localhost:3000/teams-json/create", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({
-      promotion: "WON3",
-      members: "Your Name",
-      name: "CV",
-      url: "https://github.com/nmatei/teams-networking"
-    })
+    body: JSON.stringify(json)
   });
 }
 
