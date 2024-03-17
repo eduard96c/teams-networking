@@ -1,5 +1,6 @@
 import "./style.css";
 let all_teams = [];
+let edit_id = false;
 function $(selector) {
   return document.querySelector(selector);
 }
@@ -39,7 +40,7 @@ function update_request(team) {
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ team })
+    body: JSON.stringify(team)
   });
 }
 
@@ -90,11 +91,17 @@ function set_form_values(team) {
 function on_submit(e) {
   e.preventDefault();
   let team = get_form_values();
-  create_request(team);
+  if (edit_id) {
+    team.id = edit_id;
+    update_request(team);
+  } else {
+    create_request(team);
+  }
   window.location.reload();
 }
 
 function start_edit(id) {
+  edit_id = id;
   const team = all_teams.find(elem => elem.id == id);
   set_form_values(team);
 }
