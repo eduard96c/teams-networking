@@ -80,3 +80,7 @@ section {
   color: #0096d6;
   text-decoration: none;
 }
+#teams-table tfoot input[type="text"] {
+  width: 100%;
+  box-sizing: border-box;
+}
