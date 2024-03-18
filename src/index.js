@@ -35,7 +35,7 @@ function delete_request(id) {
 }
 
 function update_request(team) {
-  fetch("http://localhost:3000/teams-json/update", {
+  return fetch("http://localhost:3000/teams-json/update", {
     method: "PUT",
     headers: {
       "Content-Type": "application/json"
@@ -93,11 +93,18 @@ function on_submit(e) {
   let team = get_form_values();
   if (edit_id) {
     team.id = edit_id;
-    update_request(team);
+    const req = update_request(team);
+    const response = req
+      .then(r => r.json())
+      .then(status => {
+        if (status.success) {
+          window.location.reload();
+        }
+      });
   } else {
     create_request(team);
+    window.location.reload();
   }
-  window.location.reload();
 }
 
 function start_edit(teams, id) {
