@@ -100,9 +100,9 @@ function on_submit(e) {
   window.location.reload();
 }
 
-function start_edit(id) {
+function start_edit(teams, id) {
   edit_id = id;
-  const team = all_teams.find(elem => elem.id == id);
+  const team = teams.find(elem => elem.id == id);
   set_form_values(team);
 }
 
@@ -113,7 +113,7 @@ function init_events() {
       delete_request(e.target.dataset.id);
       window.location.reload();
     } else if (e.target.matches("a.edit-btn")) {
-      start_edit(e.target.dataset.id);
+      start_edit(all_teams, e.target.dataset.id);
     }
   });
 }
