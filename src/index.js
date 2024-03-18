@@ -25,7 +25,7 @@ function create_request(team) {
 }
 
 function delete_request(id) {
-  fetch("http://localhost:3000/teams-json/delete", {
+  return fetch("http://localhost:3000/teams-json/delete", {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json"
@@ -93,8 +93,7 @@ function on_submit(e) {
   let team = get_form_values();
   if (edit_id) {
     team.id = edit_id;
-    const req = update_request(team);
-    const response = req
+    update_request(team)
       .then(r => r.json())
       .then(status => {
         if (status.success) {
@@ -102,8 +101,7 @@ function on_submit(e) {
         }
       });
   } else {
-    const req = create_request(team);
-    const response = req
+    create_request(team)
       .then(r => r.json())
       .then(status => {
         if (status.success) {
@@ -123,8 +121,13 @@ function init_events() {
   $("#teams-form").addEventListener("submit", on_submit);
   $("#teams-table tbody").addEventListener("click", e => {
     if (e.target.matches("a.delete-btn")) {
-      delete_request(e.target.dataset.id);
-      window.location.reload();
+      delete_request(e.target.dataset.id)
+        .then(r => r.json())
+        .then(status => {
+          if (status) {
+            window.location.reload();
+          }
+        });
     } else if (e.target.matches("a.edit-btn")) {
       start_edit(all_teams, e.target.dataset.id);
     }
